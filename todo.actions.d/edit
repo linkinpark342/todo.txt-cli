@@ -8,7 +8,21 @@ case $1 in
   echo "  If BASENAME is not given, defaults to 'todo'."
   ;;
 *)
-  FILE=${2:-todo}.txt
-  $EDITOR "$TODO_DIR/$FILE"
+  file=
+  case "x$2" in
+    "xdone")
+      file="$DONE_FILE"
+      ;;
+    "xreport")
+      file="$REPORT_FILE"
+      ;;
+    "xtodo"|"x")
+      file="$TODO_FILE"
+      ;;
+    *)
+      file="$TODO_DIR/$2.txt"
+      ;;
+  esac
+  $EDITOR "$file"
   ;;
 esac
